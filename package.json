@@ -1,0 +1,41 @@
+{
+  "name": "game-server-app",
+  "version": "1.0.0",
+  "description": "A managed host for game servers",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsnd --transpile-only -r tsconfig-paths/register src/index.ts | pino-pretty -c -l",
+    "debug": "tsnd --transpile-only --inspect --files src/index.ts | pino-pretty -c -l",
+    "cli": "tsnd --transpile-only --files src/index.ts --cli",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Leonardo Vargas",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/node": "^17.0.41",
+    "@types/pino": "^7.0.5",
+    "@types/uuid": "^8.3.4",
+    "@typescript-eslint/eslint-plugin": "^5.25.0",
+    "@typescript-eslint/parser": "^5.25.0",
+    "eslint": "^8.15.0",
+    "pino-pretty": "^7.6.1",
+    "prettier": "^2.6.2",
+    "ts-node": "^10.7.0",
+    "ts-node-dev": "^1.1.8",
+    "tsconfig-paths": "^4.0.0",
+    "typescript": "^4.6.4"
+  },
+  "dependencies": {
+    "awilix": "^7.0.3",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "pg": "^8.7.3",
+    "pg-hstore": "^2.3.4",
+    "pino": "^7.11.0",
+    "pino-http": "^7.1.0",
+    "sequelize": "^6.19.2",
+    "types-joi": "^2.1.0",
+    "uuid": "^8.3.2"
+  }
+}
