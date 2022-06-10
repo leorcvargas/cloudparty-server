@@ -2,6 +2,8 @@ import { GameServer } from '@/gameServer/domain/gameServer';
 import { GameServerType } from '@/gameServer/domain/gameServerType';
 import { UseCase } from '@/lib/useCase';
 import { GameServerRepository } from '@/gameServer/domain/gameServerRepository';
+import { K8sClient } from '@/gameServer/interface/k8s/client';
+import { Configuration } from '@/config';
 
 interface Input {
   name: string;
@@ -12,21 +14,29 @@ type Output = GameServer;
 
 type Dependencies = {
   gameServerRepository: GameServerRepository;
+  k8sClient: K8sClient;
+  config: Configuration;
 };
 
 class CreateGameServer implements UseCase<Input, Output> {
-  constructor(private readonly dependencies: Dependencies) {}
+  constructor(private readonly deps: Dependencies) {}
 
   public async execute(input: Input): Promise<Output> {
     const gameServer = new GameServer({
       ...input,
-      hostname: 'localhost',
-      port: 8080,
+      hostname: this.deps.config.http.host,
+      // TODO: Get an available port instead of random bs
+      port: Math.ceil(Math.random() * 30000) + 10000,
     });
 
-    // TODO: Create in K8s
+    await this.deps.k8sClient.createService({
+      id: gameServer.id,
+    });
+    await this.deps.k8sClient.createDeployment({
+      id: gameServer.id,
+    });
 
-    await this.dependencies.gameServerRepository.save(gameServer);
+    await this.deps.gameServerRepository.save(gameServer);
 
     return gameServer;
   }

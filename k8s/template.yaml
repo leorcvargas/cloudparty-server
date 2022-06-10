@@ -1,0 +1,63 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mc-vanilla
+spec:
+  type: NodePort
+  ports:
+    - port: 25565
+      nodePort: 30000
+  selector:
+    app: mc-vanilla
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mc-vanilla
+spec:
+  selector:
+    matchLabels:
+      app: mc-vanilla
+  template:
+    metadata:
+      labels:
+        app: mc-vanilla
+    spec:
+      containers:
+        - image: itzg/minecraft-server
+          name: mc-vanilla
+          env:
+            - name: EULA
+              value: "true"
+          ports:
+            - containerPort: 25565
+              name: main
+          readinessProbe:
+            exec:
+              command:
+                - mcstatus
+                - localhost
+                - ping
+            initialDelaySeconds: 90
+            periodSeconds: 90
+          livenessProbe:
+            exec:
+              command:
+                - mcstatus
+                - localhost
+                - ping
+            initialDelaySeconds: 90
+            periodSeconds: 90
+          volumeMounts:
+            - name: mc-data
+              mountPath: /data
+          resources:
+            requests:
+              cpu: 50m
+              memory: 100Mi
+            limits:
+              cpu: 1
+              memory: 2Gi
+      volumes:
+        - name: mc-data
+          emptyDir: {}

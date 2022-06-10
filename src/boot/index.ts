@@ -1,9 +1,10 @@
-import { appModules } from '@/boot/appModules';
 import { asValue } from 'awilix';
+import { Logger } from 'pino';
+
+import { appModules } from '@/boot/appModules';
 import { database } from '@/boot/database';
 import { withContext } from '@/context';
 import { Configuration } from '@/config';
-import { Logger } from 'pino';
 import { server } from './server';
 import { repl } from './repl';
 
@@ -15,6 +16,12 @@ const main = withContext(
       startedAt: asValue(new Date()),
       config: asValue(config),
     });
+
+    app.onReady(async () => {
+      // TODO: Only for development, remove it later
+      const sequelize = container.resolve('sequelize');
+      await sequelize.sync({ force: true });
+    }, 'append');
 
     await bootstrap(database, server, repl, ...appModules);
   },

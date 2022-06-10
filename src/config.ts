@@ -21,12 +21,12 @@ const config: Configuration = {
     port: envNumber('REPL_PORT', 2580),
   },
   http: {
-    host: envString('DB_HOST', 'localhost'),
-    port: envNumber('DB_PORT', 3000),
+    host: envString('HOST', '127.0.0.1'),
+    port: envNumber('PORT', 3000),
   },
   sequelize: {
     database: envString('DB_NAME', 'game_server_app'),
-    host: envString('DB_HOST', 'localhost'),
+    host: envString('DB_HOST', '127.0.0.1'),
     port: envNumber('DB_PORT', 5432),
     username: envString('DB_USER', 'game_server_app'),
     password: envString('DB_PASSWORD', 'game_server_app'),

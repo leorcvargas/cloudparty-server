@@ -9,9 +9,9 @@ type Dependencies = {
 class SequelizeGameServerRepository implements GameServerRepository {
   constructor(private readonly dependencies: Dependencies) {}
 
-  async save(entity: GameServer): Promise<void> {
+  save(entity: GameServer): Promise<GameServerModel> {
     const gameServer = this.dependencies.gameServerModel.build({ ...entity });
-    await gameServer.save();
+    return gameServer.save();
   }
 }
 

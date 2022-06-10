@@ -17,41 +17,38 @@ type DatabaseConfig = {
   };
 };
 
-const database = makeModule(
-  'database',
-  async ({ container: { register }, config: { sequelize } }) => {
-    const client = new Sequelize({
-      database: sequelize.database,
-      host: sequelize.host,
-      port: sequelize.port,
-      username: sequelize.username,
-      password: sequelize.password,
-      dialect: 'postgres',
-      sync: { force: true },
-    });
-
-    // TODO: Use migrations
-    client.afterDefine('sync', () => {
-      return client.sync({ force: true }).catch((err) => console.error(err));
-    });
-
-    const sequelizeProvider = makeSequelizeProvider({ sequelize: client });
-
-    register({
-      sequelize: asValue(client),
-      sequelizeProvider: asValue(sequelizeProvider),
-    });
-
-    return async () => {
-      await client.close();
-    };
-  },
-);
-
 type DatabaseRegistry = {
   sequelize: Sequelize;
   sequelizeProvider: SequelizeProvider;
 };
+
+const database = makeModule(
+  'database',
+  async ({
+    container: { register },
+    config: { sequelize: sequelizeConfig },
+  }) => {
+    const sequelize = new Sequelize({
+      database: sequelizeConfig.database,
+      host: sequelizeConfig.host,
+      port: sequelizeConfig.port,
+      username: sequelizeConfig.username,
+      password: sequelizeConfig.password,
+      dialect: 'postgres',
+    });
+
+    const sequelizeProvider = makeSequelizeProvider({ sequelize });
+
+    register({
+      sequelize: asValue(sequelize),
+      sequelizeProvider: asValue(sequelizeProvider),
+    });
+
+    return async () => {
+      await sequelize.close();
+    };
+  },
+);
 
 export { database };
 export type { DatabaseRegistry, DatabaseConfig };
