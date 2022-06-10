@@ -7,6 +7,7 @@ import { withContext } from '@/context';
 import { Configuration } from '@/config';
 import { server } from './server';
 import { repl } from './repl';
+import { k8s } from './k8s';
 
 const main = withContext(
   async ({ app, container, config, bootstrap, logger }) => {
@@ -23,7 +24,7 @@ const main = withContext(
       await sequelize.sync({ force: true });
     }, 'append');
 
-    await bootstrap(database, server, repl, ...appModules);
+    await bootstrap(database, server, repl, k8s, ...appModules);
   },
 );
 

@@ -9,16 +9,11 @@ import {
   initGameServerModel,
 } from './infrastructure/data/gameServerModel';
 import { SequelizeGameServerRepository } from './infrastructure/data/sequelizeGameServerRepository';
-import { K8sClient } from './interface/k8s/client';
-import * as k8s from '@kubernetes/client-node';
 
 type GameServerRegistry = {
   gameServerModel: typeof GameServerModel;
   gameServerRepository: GameServerRepository;
   createGameServer: CreateGameServer;
-  k8sClient: K8sClient;
-  k8sAppsV1Api: k8s.AppsV1Api;
-  k8sCoreV1Api: k8s.CoreV1Api;
 };
 
 const gameServerModule = makeModule(
@@ -30,18 +25,10 @@ const gameServerModule = makeModule(
       }),
     );
 
-    const kc = new k8s.KubeConfig();
-    kc.loadFromDefault();
-    const k8sAppsV1Api = kc.makeApiClient(k8s.AppsV1Api);
-    const k8sCoreV1Api = kc.makeApiClient(k8s.CoreV1Api);
-
     register({
       ...toContainerValues(models),
       gameServerRepository: asClass(SequelizeGameServerRepository),
       createGameServer: asClass(CreateGameServer),
-      k8sClient: asClass(K8sClient),
-      k8sAppsV1Api: asValue(k8sAppsV1Api),
-      k8sCoreV1Api: asValue(k8sCoreV1Api),
     });
   },
 );
