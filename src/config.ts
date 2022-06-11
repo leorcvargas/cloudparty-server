@@ -7,12 +7,12 @@ import {
 import { DatabaseConfig } from '@/boot/database';
 import { ServerConfig } from './boot/server';
 import { REPLConfig } from './boot/repl';
-import { K8sConfig } from './boot/k8s';
+import { OrchestratorConfig } from './boot/orchestrator';
 
 type Configuration = EnvironmentConfig &
   DatabaseConfig &
   ServerConfig &
-  K8sConfig &
+  OrchestratorConfig &
   REPLConfig;
 
 const config: Configuration = {

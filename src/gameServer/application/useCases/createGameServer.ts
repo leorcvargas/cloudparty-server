@@ -2,7 +2,7 @@ import { GameServer } from '@/gameServer/domain/gameServer';
 import { GameServerType } from '@/gameServer/domain/gameServerType';
 import { UseCase } from '@/lib/useCase';
 import { GameServerRepository } from '@/gameServer/domain/gameServerRepository';
-import { K8sClient } from '@/gameServer/interface/k8s/client';
+import { K8sClient } from '@/gameServer/interface/orchestrator/client';
 import { Configuration } from '@/config';
 
 interface Input {
