@@ -43,6 +43,7 @@ const initGameServerModel = (sequelize: Sequelize) => {
       port: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        unique: true,
       },
       createdAt: {
         type: DataTypes.DATE,

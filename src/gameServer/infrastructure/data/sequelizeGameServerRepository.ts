@@ -7,11 +7,15 @@ type Dependencies = {
 };
 
 class SequelizeGameServerRepository implements GameServerRepository {
-  constructor(private readonly dependencies: Dependencies) {}
+  constructor(private readonly deps: Dependencies) {}
 
   save(entity: GameServer): Promise<GameServerModel> {
-    const gameServer = this.dependencies.gameServerModel.build({ ...entity });
+    const gameServer = this.deps.gameServerModel.build({ ...entity });
     return gameServer.save();
+  }
+
+  countByPort(port: number): Promise<number> {
+    return this.deps.gameServerModel.count({ where: { port } });
   }
 }
 

@@ -5,6 +5,7 @@ import { makeModule } from '@/context';
 import { K8sClient } from '@/gameServer/interface/orchestrator/client';
 import { OrchestratorDeployContext } from '@/gameServer/interface/orchestrator/orchestratorDeployContext';
 import { MinecraftDeployStrategy } from '@/gameServer/interface/orchestrator/strategies/minecraftDeployStrategy';
+import { MinecraftResourcesBuilder } from '@/gameServer/interface/orchestrator/builders/minecraftResourcesBuilder';
 
 // # TODO: Define orchestrator config for cloud env
 type OrchestratorConfig = any;
@@ -15,6 +16,7 @@ type OrchestratorRegistry = {
   k8sClient: K8sClient;
   orchestratorDeployContext: OrchestratorDeployContext;
   minecraftDeployStrategy: MinecraftDeployStrategy;
+  minecraftResourcesBuilder: MinecraftResourcesBuilder;
 };
 
 const orchestrator = makeModule(
@@ -31,6 +33,7 @@ const orchestrator = makeModule(
       k8sClient: asClass(K8sClient),
       orchestratorDeployContext: asClass(OrchestratorDeployContext),
       minecraftDeployStrategy: asClass(MinecraftDeployStrategy),
+      minecraftResourcesBuilder: asClass(MinecraftResourcesBuilder),
     });
   },
 );

@@ -7,6 +7,7 @@
     "dev": "tsnd --transpile-only -r tsconfig-paths/register src/index.ts | pino-pretty -c -l",
     "debug": "tsnd --transpile-only --inspect --files src/index.ts | pino-pretty -c -l",
     "cli": "tsnd --transpile-only --files src/index.ts --cli",
+    "cli:debug": "tsnd --transpile-only --inspect --files src/index.ts --cli",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Leonardo Vargas",
