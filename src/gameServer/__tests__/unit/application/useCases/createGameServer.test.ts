@@ -5,7 +5,7 @@ import { GameServerType } from '@/gameServer/domain/gameServerType';
 import { OrchestratorDeployContext } from '@/gameServer/interface/orchestrator/orchestratorDeployContext';
 import { OrchestratorDeployStrategy } from '@/gameServer/interface/orchestrator/strategies/orchestratorDeployStrategy';
 
-describe('CreateArticle', () => {
+describe('CreateGameServer', () => {
   const id = 'mock-game-server-id';
   const name = 'mock-game-server-name';
   const type = GameServerType.Minecraft;
