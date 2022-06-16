@@ -4,7 +4,7 @@ interface GameServerRepository {
   getNextId(): string;
   save(entity: GameServer): Promise<void>;
   findAll(): Promise<GameServer[]>;
-  countByPort(port: number): Promise<number>;
+  getAvailablePort(): Promise<number>;
 }
 
 export { GameServerRepository };

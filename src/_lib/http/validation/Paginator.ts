@@ -1,7 +1,7 @@
 import { Request } from 'express';
 import Joi, { InterfaceFrom } from 'types-joi';
-import { ValidationError } from '@/_lib/errors/ValidationError';
-import { BadRequestError } from '@/_lib/errors/BadRequestError';
+import { ValidationError } from '@/_lib/errors/validationError';
+import { BadRequestError } from '@/_lib/errors/badRequestError';
 
 type FieldConfig = {
   name: string;
@@ -19,7 +19,9 @@ type PaginatorOptions<T extends Record<string, any>> = {
   defaults?: {
     pageSize?: number;
     page?: number;
-    filter?: T['filter'] extends Joi.BaseSchema<any> ? NonNullable<InterfaceFrom<NonNullable<T['filter']>>> : any;
+    filter?: T['filter'] extends Joi.BaseSchema<any>
+      ? NonNullable<InterfaceFrom<NonNullable<T['filter']>>>
+      : any;
     sort?: {
       field: string;
       direction: 'asc' | 'desc';
@@ -31,8 +33,10 @@ type PaginatorOptions<T extends Record<string, any>> = {
 type Paginator<T extends PaginatorOptions<Record<string, any>>> = {
   getPagination: (req: Request) => { page: number; pageSize: number };
   getFilter: (
-    req: Request
-  ) => T['filter'] extends Joi.BaseSchema<any> ? NonNullable<InterfaceFrom<NonNullable<T['filter']>>> : any;
+    req: Request,
+  ) => T['filter'] extends Joi.BaseSchema<any>
+    ? NonNullable<InterfaceFrom<NonNullable<T['filter']>>>
+    : any;
   getSorter: (req: Request) => { field: string; direction: 'asc' | 'desc' }[];
 };
 
@@ -53,7 +57,9 @@ const defaultOptions = {
   filter: null,
 };
 
-const makePaginator = <T extends PaginatorOptions<any>>(opts: Partial<T> = {}): Paginator<typeof opts> => {
+const makePaginator = <T extends PaginatorOptions<any>>(
+  opts: Partial<T> = {},
+): Paginator<typeof opts> => {
   const { useDefaults, defaults, fields, filter } = {
     ...defaultOptions,
     ...opts,
@@ -70,7 +76,8 @@ const makePaginator = <T extends PaginatorOptions<any>>(opts: Partial<T> = {}): 
   const getField = (field: string | FieldConfig): FieldConfig =>
     typeof field === 'string' ? { name: field, from: 'query' } : field;
 
-  const fromRequest = (req: Request, field: FieldConfig) => req[field.from][field.name];
+  const fromRequest = (req: Request, field: FieldConfig) =>
+    req[field.from][field.name];
 
   const getPagination = (req: Request): { page: number; pageSize: number } => {
     const pageField = getField(fields.page);
@@ -81,7 +88,7 @@ const makePaginator = <T extends PaginatorOptions<any>>(opts: Partial<T> = {}): 
 
     if (!useDefaults && (isNaN(pageValue) || isNaN(pageSizeValue))) {
       throw BadRequestError.create(
-        `Missing '${pageField.from}.${pageField.name}' or '${pageSizeField.from}.${pageSizeField.name}' values`
+        `Missing '${pageField.from}.${pageField.name}' or '${pageSizeField.from}.${pageSizeField.name}' values`,
       );
     }
 
@@ -91,15 +98,23 @@ const makePaginator = <T extends PaginatorOptions<any>>(opts: Partial<T> = {}): 
     };
   };
 
-  const getSorter = (req: Request): { field: string; direction: 'asc' | 'desc' }[] => {
+  const getSorter = (
+    req: Request,
+  ): { field: string; direction: 'asc' | 'desc' }[] => {
     const sortField = getField(fields.sort);
     const sortValues = fromRequest(req, sortField);
 
     if (!useDefaults && sortValues === undefined) {
-      throw BadRequestError.create(`Missing '${sortField.from}.${sortField.name}' value`);
+      throw BadRequestError.create(
+        `Missing '${sortField.from}.${sortField.name}' value`,
+      );
     }
 
-    const sortList: string[] = Array.isArray(sortValues) ? sortValues : sortValues ? [sortValues] : [];
+    const sortList: string[] = Array.isArray(sortValues)
+      ? sortValues
+      : sortValues
+      ? [sortValues]
+      : [];
 
     return sortList.length
       ? sortList.map((sort) => ({
@@ -110,20 +125,26 @@ const makePaginator = <T extends PaginatorOptions<any>>(opts: Partial<T> = {}): 
   };
 
   const getFilter = (
-    req: Request
-  ): T['filter'] extends Joi.BaseSchema<any> ? NonNullable<InterfaceFrom<NonNullable<T['filter']>>> : any => {
+    req: Request,
+  ): T['filter'] extends Joi.BaseSchema<any>
+    ? NonNullable<InterfaceFrom<NonNullable<T['filter']>>>
+    : any => {
     const filterField = getField(fields.filter);
     const filterValue = fromRequest(req, filterField);
 
     if (!filter) {
       if (!useDefaults && filterValue === undefined) {
-        throw BadRequestError.create(`Missing '${filterField.from}.${filterField.name}' value`);
+        throw BadRequestError.create(
+          `Missing '${filterField.from}.${filterField.name}' value`,
+        );
       }
 
       return filterValue ?? defaults.filter;
     }
 
-    const { error } = Joi.object({ filter: filter as unknown as Joi.AnySchema<any> })
+    const { error } = Joi.object({
+      filter: filter as unknown as Joi.AnySchema<any>,
+    })
       .options({ allowUnknown: true })
       .validate(req[filterField.from]);
 

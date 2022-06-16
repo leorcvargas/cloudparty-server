@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import { createGameServerHandler } from './CreateGameServerHandler';
+import { createGameServerHandler } from './createGameServerHandler';
 import { findGameServerHandler } from './findGameServerHandler';
 
 type Dependencies = {

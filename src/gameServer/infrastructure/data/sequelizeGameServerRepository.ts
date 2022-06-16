@@ -26,13 +26,22 @@ class SequelizeGameServerRepository implements GameServerRepository {
     await gameServer.save();
   }
 
-  countByPort(port: number): Promise<number> {
-    return this.gameServerModel.count({ where: { port } });
-  }
-
   async findAll(): Promise<GameServer[]> {
     const gameServers = await this.gameServerModel.findAll();
     return gameServers.map(GameServerMapper.toEntity);
+  }
+
+  async getAvailablePort(): Promise<number> {
+    const port = Math.floor(Math.random() * 2768) + 30000;
+
+    const countSamePort = await this.gameServerModel.count({ where: { port } });
+    const isPortAvailable = countSamePort === 0;
+
+    if (isPortAvailable) {
+      return port;
+    }
+
+    return this.getAvailablePort();
   }
 }
 

@@ -9,30 +9,27 @@ describe('CreateGameServer', () => {
   const id = 'mock-game-server-id';
   const name = 'mock-game-server-name';
   const type = GameServerType.Minecraft;
+  const port = 30000;
 
   const gameServerRepository: GameServerRepository = {
     findAll: jest.fn(),
     save: jest.fn(),
-    countByPort: jest.fn().mockReturnValue(Promise.resolve(0)),
+    getAvailablePort: jest.fn().mockReturnValue(Promise.resolve(port)),
     getNextId: jest.fn().mockReturnValue(id),
   };
   const minecraftDeployStrategy: OrchestratorDeployStrategy = {
     deploy: jest.fn(),
   };
-  const orchestratorDeployContext = {
-    setStrategy: jest.fn(),
-    execute: jest.fn(),
-  } as any as OrchestratorDeployContext;
 
   let createGameServer: CreateGameServer;
 
   beforeEach(async () => {
     jest.clearAllMocks();
     createGameServer = new CreateGameServer({
-      config: { http: { host: 'localhost' } } as Configuration,
       gameServerRepository,
       minecraftDeployStrategy,
-      orchestratorDeployContext,
+      config: { http: { host: 'localhost' } } as Configuration,
+      orchestratorDeployContext: new OrchestratorDeployContext(),
     });
   });
 
@@ -52,5 +49,11 @@ describe('CreateGameServer', () => {
         type,
       }),
     );
+  });
+
+  it('should request to deploy the game server', async () => {
+    await createGameServer.execute({ name, type });
+
+    expect(minecraftDeployStrategy.deploy).toHaveBeenCalledWith(id, port);
   });
 });

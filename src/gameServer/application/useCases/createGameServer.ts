@@ -34,7 +34,7 @@ class CreateGameServer implements UseCase<Input, Output> {
   }
 
   public async execute(input: Input): Promise<Output> {
-    const port = await this.getAvailablePort();
+    const port = await this.gameServerRepository.getAvailablePort();
     const id = this.gameServerRepository.getNextId();
 
     const gameServer = new GameServer({
@@ -66,19 +66,6 @@ class CreateGameServer implements UseCase<Input, Output> {
     await this.gameServerRepository.save(gameServer);
 
     return id;
-  }
-
-  private async getAvailablePort(): Promise<number> {
-    const port = Math.floor(Math.random() * 2768) + 30000;
-
-    const countSamePort = await this.gameServerRepository.countByPort(port);
-    const isPortAvailable = countSamePort === 0;
-
-    if (isPortAvailable) {
-      return port;
-    }
-
-    return this.getAvailablePort();
   }
 }
 
