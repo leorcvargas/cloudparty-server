@@ -11,7 +11,7 @@ interface Input {
   type: GameServerType;
 }
 
-type Output = GameServer;
+type Output = string;
 
 type Dependencies = {
   gameServerRepository: GameServerRepository;
@@ -65,7 +65,7 @@ class CreateGameServer implements UseCase<Input, Output> {
     );
     await this.gameServerRepository.save(gameServer);
 
-    return gameServer;
+    return id;
   }
 
   private async getAvailablePort(): Promise<number> {

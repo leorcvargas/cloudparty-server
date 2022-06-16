@@ -15,7 +15,6 @@ const GameServerMapper: DataMapper<GameServer, GameServerModelAttributes> = {
     deletedAt: entity.deletedAt,
   }),
   toEntity: (data: GameServerModelAttributes) => {
-    console.log(data);
     const gameServer = new GameServer({
       id: data.id,
       name: data.name,

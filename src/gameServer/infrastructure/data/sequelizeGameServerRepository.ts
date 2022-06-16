@@ -20,7 +20,9 @@ class SequelizeGameServerRepository implements GameServerRepository {
   }
 
   save(entity: GameServer): Promise<GameServerModel> {
-    const gameServer = this.gameServerModel.build({ ...entity });
+    const data = GameServerMapper.toData(entity);
+    const gameServer = this.gameServerModel.build(data);
+
     return gameServer.save();
   }
 

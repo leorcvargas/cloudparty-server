@@ -23,9 +23,9 @@ const createGameServerHandler = handler(
     async (req: Request, res: Response) => {
       const { name, type } = getBody(req);
 
-      const gameServer = await createGameServer.execute({ name, type });
+      const id = await createGameServer.execute({ name, type });
 
-      res.status(HttpStatus.CREATED).json({ gameServer });
+      res.status(HttpStatus.CREATED).json({ id });
     },
 );
 
