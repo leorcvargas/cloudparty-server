@@ -1,7 +1,7 @@
 import { makeModule } from '@/context';
 import { toContainerValues } from '@/lib/di';
 import { withSequelizeProvider } from '@/lib/sequelizeProvider';
-import { asClass, asValue } from 'awilix';
+import { asClass } from 'awilix';
 import { CreateGameServer } from './application/useCases/createGameServer';
 import { GameServerRepository } from './domain/gameServerRepository';
 import {
@@ -9,6 +9,7 @@ import {
   initGameServerModel,
 } from './infrastructure/data/gameServerModel';
 import { SequelizeGameServerRepository } from './infrastructure/data/sequelizeGameServerRepository';
+import { makeGameServerController } from './infrastructure/http/gameServerController';
 
 type GameServerRegistry = {
   gameServerModel: typeof GameServerModel;
@@ -30,6 +31,8 @@ const gameServerModule = makeModule(
       gameServerRepository: asClass(SequelizeGameServerRepository),
       createGameServer: asClass(CreateGameServer),
     });
+
+    build(makeGameServerController);
   },
 );
 
