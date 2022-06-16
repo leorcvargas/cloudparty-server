@@ -1,15 +1,6 @@
-import {
-  DataTypes,
-  Sequelize,
-  Model,
-  InferAttributes,
-  InferCreationAttributes,
-} from 'sequelize';
+import { DataTypes, Sequelize, Model, Optional } from 'sequelize';
 
-class GameServerModel extends Model<
-  InferAttributes<GameServerModel>,
-  InferCreationAttributes<GameServerModel>
-> {
+type GameServerModelAttributes = {
   id: string;
   name: string;
   hostname: string;
@@ -18,6 +9,25 @@ class GameServerModel extends Model<
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date | null;
+};
+
+type GameServerModelCreationAttributes = Optional<
+  GameServerModelAttributes,
+  'id'
+>;
+
+class GameServerModel extends Model<
+  GameServerModelAttributes,
+  GameServerModelCreationAttributes
+> {
+  declare id: string;
+  declare name: string;
+  declare hostname: string;
+  declare port: number;
+  declare type: 'MINECRAFT';
+  declare createdAt: Date;
+  declare updatedAt: Date;
+  declare deletedAt: Date | null;
 }
 
 const initGameServerModel = (sequelize: Sequelize) => {
@@ -65,4 +75,5 @@ const initGameServerModel = (sequelize: Sequelize) => {
   );
 };
 
+export type { GameServerModelAttributes, GameServerModelCreationAttributes };
 export { initGameServerModel, GameServerModel };

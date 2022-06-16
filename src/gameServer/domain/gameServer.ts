@@ -8,6 +8,9 @@ type GameServerProps = {
   hostname: string;
   port: number;
   type: GameServerType;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date | null;
 };
 
 class GameServer {
@@ -26,9 +29,9 @@ class GameServer {
     this.hostname = props.hostname;
     this.port = props.port;
     this.type = props.type;
-    this.createdAt = new Date();
-    this.updatedAt = new Date();
-    this.deletedAt = null;
+    this.createdAt = props.createdAt;
+    this.updatedAt = props.updatedAt;
+    this.deletedAt = props.deletedAt;
   }
 
   public get address(): string {

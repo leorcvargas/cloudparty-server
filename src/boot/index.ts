@@ -21,7 +21,7 @@ const main = withContext(
     app.onReady(async () => {
       // TODO: Only for development, remove it later
       const sequelize = container.resolve('sequelize');
-      await sequelize.sync({ force: true });
+      await sequelize.sync();
     }, 'append');
 
     await bootstrap(database, server, repl, orchestrator, ...appModules);

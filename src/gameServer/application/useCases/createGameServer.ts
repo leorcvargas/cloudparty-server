@@ -39,6 +39,9 @@ class CreateGameServer implements UseCase<Input, Output> {
       ...input,
       port,
       hostname: this.config.http.host,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      deletedAt: null,
     });
 
     switch (input.type) {
