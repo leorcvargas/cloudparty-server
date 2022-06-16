@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 
-import { HttpStatus } from '@/lib/http/httpStatus';
-import { handler } from '@/lib/http/handler';
+import { HttpStatus } from '@/_lib/http/httpStatus';
+import { handler } from '@/_lib/http/handler';
 import { FindGameServers } from '@/gameServer/application/useCases/findGameServers';
 
 type Dependencies = {

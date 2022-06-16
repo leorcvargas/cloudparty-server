@@ -1,7 +1,7 @@
 import { RequestHandler } from 'express';
 import { asFunction } from 'awilix';
 
-import { AsyncHandler, runAsync } from '@/lib/http/runAsync';
+import { AsyncHandler, runAsync } from '@/_lib/http/runAsync';
 
 type ControllerHandler = (dependencies: any) => AsyncHandler;
 

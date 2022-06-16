@@ -2,12 +2,12 @@ import express, { Router, Application, json, urlencoded } from 'express';
 import { asValue } from 'awilix';
 import httpLogger from 'pino-http';
 import { createServer } from 'http';
-import { requestId } from '@/lib/http/middlewares/requestId';
-import { requestContainer } from '@/lib/http/middlewares/requestContainer';
-import { errorHandler } from '@/lib/http/middlewares/errorHandler';
+import { requestId } from '@/_lib/http/middlewares/requestId';
+import { requestContainer } from '@/_lib/http/middlewares/requestContainer';
+import { errorHandler } from '@/_lib/http/middlewares/errorHandler';
 import { makeModule } from '@/context';
-import { gracefulShutdown } from '@/lib/http/middlewares/gracefulShutdown';
-import { errorConverters } from '@/sharedKernel/interface/http/errorConverters';
+import { gracefulShutdown } from '@/_lib/http/middlewares/gracefulShutdown';
+import { errorConverters } from '@/_sharedKernel/interface/http/errorConverters';
 
 type ServerConfig = {
   http: {

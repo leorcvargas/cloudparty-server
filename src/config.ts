@@ -3,11 +3,11 @@ import {
   EnvironmentConfig,
   envNumber,
   envString,
-} from '@/lib/environment';
-import { DatabaseConfig } from '@/boot/database';
-import { ServerConfig } from './boot/server';
-import { REPLConfig } from './boot/repl';
-import { OrchestratorConfig } from './boot/orchestrator';
+} from '@/_lib/environment';
+import { DatabaseConfig } from '@/_boot/database';
+import { ServerConfig } from './_boot/server';
+import { REPLConfig } from './_boot/repl';
+import { OrchestratorConfig } from './_boot/orchestrator';
 
 type Configuration = EnvironmentConfig &
   DatabaseConfig &

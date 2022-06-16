@@ -1,5 +1,5 @@
-import { BaseError, Exception } from '@/lib/errors/baseError';
-import { makePredicate } from '@/lib/predicate';
+import { BaseError, Exception } from '@/_lib/errors/baseError';
+import { makePredicate } from '@/_lib/predicate';
 
 namespace ForbiddenError {
   const type = Symbol();

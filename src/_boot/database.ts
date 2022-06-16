@@ -5,7 +5,7 @@ import { makeModule } from '@/context';
 import {
   makeSequelizeProvider,
   SequelizeProvider,
-} from '@/lib/sequelizeProvider';
+} from '@/_lib/sequelizeProvider';
 
 type DatabaseConfig = {
   sequelize: {

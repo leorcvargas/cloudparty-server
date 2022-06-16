@@ -1,9 +1,9 @@
 import { createContainer } from 'awilix';
-import { MainRegistry } from '@/boot';
-import { DatabaseRegistry } from '@/boot/database';
-import { AppModulesRegistry } from '@/boot/appModules';
-import { ServerRegistry } from './boot/server';
-import { OrchestratorRegistry } from './boot/orchestrator';
+import { MainRegistry } from '@/_boot';
+import { DatabaseRegistry } from '@/_boot/database';
+import { AppModulesRegistry } from '@/_boot/appModules';
+import { ServerRegistry } from './_boot/server';
+import { OrchestratorRegistry } from './_boot/orchestrator';
 
 type Registry = MainRegistry &
   DatabaseRegistry &

@@ -1,4 +1,4 @@
-import { Application, HookFn, makeApp } from '@/lib/application';
+import { Application, HookFn, makeApp } from '@/_lib/application';
 
 type EntrypointFn<T extends Record<string | symbol, any>> = (
   arg: Context<T>,

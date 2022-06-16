@@ -3,9 +3,9 @@ import * as Joi from 'types-joi';
 
 import { CreateGameServer } from '@/gameServer/application/useCases/createGameServer';
 import { GameServerType } from '@/gameServer/domain/gameServerType';
-import { HttpStatus } from '@/lib/http/httpStatus';
-import { makeValidator } from '@/lib/http/validation/Validator';
-import { handler } from '@/lib/http/handler';
+import { HttpStatus } from '@/_lib/http/httpStatus';
+import { makeValidator } from '@/_lib/http/validation/Validator';
+import { handler } from '@/_lib/http/handler';
 
 type Dependencies = {
   createGameServer: CreateGameServer;

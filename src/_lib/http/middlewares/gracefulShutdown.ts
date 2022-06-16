@@ -1,5 +1,5 @@
 import { Server } from 'http';
-import { logger } from '@/lib/logger';
+import { logger } from '@/_lib/logger';
 import { RequestHandler } from 'express';
 
 type ShutdownMiddleware = {

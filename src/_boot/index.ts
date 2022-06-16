@@ -1,8 +1,8 @@
 import { asValue } from 'awilix';
 import { Logger } from 'pino';
 
-import { appModules } from '@/boot/appModules';
-import { database } from '@/boot/database';
+import { appModules } from '@/_boot/appModules';
+import { database } from '@/_boot/database';
 import { withContext } from '@/context';
 import { Configuration } from '@/config';
 import { server } from './server';

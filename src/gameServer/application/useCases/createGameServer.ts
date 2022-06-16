@@ -1,6 +1,6 @@
 import { GameServer } from '@/gameServer/domain/gameServer';
 import { GameServerType } from '@/gameServer/domain/gameServerType';
-import { UseCase } from '@/lib/useCase';
+import { UseCase } from '@/_lib/useCase';
 import { GameServerRepository } from '@/gameServer/domain/gameServerRepository';
 import { Configuration } from '@/config';
 import { OrchestratorDeployContext } from '@/gameServer/interface/orchestrator/orchestratorDeployContext';

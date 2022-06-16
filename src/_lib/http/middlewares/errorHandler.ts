@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { ErrorRequestHandler } from 'express';
-import { Exception } from '@/lib/errors/baseError';
+import { Exception } from '@/_lib/errors/baseError';
 
 type ErrorConverter<E extends Exception> = {
   test: (err: E | any) => err is E;

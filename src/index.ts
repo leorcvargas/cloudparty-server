@@ -6,7 +6,7 @@ import('tsconfig-paths')
       addMatchAll: false,
     });
   })
-  .then(() => import('@/boot'))
+  .then(() => import('@/_boot'))
   .then(({ main }) => main())
   .catch((err) => {
     console.error(err);

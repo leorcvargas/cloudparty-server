@@ -1,6 +1,6 @@
 import { GameServer } from '@/gameServer/domain/gameServer';
 import { GameServerType } from '@/gameServer/domain/gameServerType';
-import { DataMapper } from '@/lib/mapper';
+import { DataMapper } from '@/_lib/mapper';
 import type { GameServerModelAttributes } from './gameServerModel';
 
 const GameServerMapper: DataMapper<GameServer, GameServerModelAttributes> = {

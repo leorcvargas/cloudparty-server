@@ -1,6 +1,6 @@
 import { makeModule } from '@/context';
-import { toContainerValues } from '@/lib/di';
-import { withSequelizeProvider } from '@/lib/sequelizeProvider';
+import { toContainerValues } from '@/_lib/di';
+import { withSequelizeProvider } from '@/_lib/sequelizeProvider';
 import { asClass } from 'awilix';
 import { CreateGameServer } from './application/useCases/createGameServer';
 import { FindGameServers } from './application/useCases/findGameServers';

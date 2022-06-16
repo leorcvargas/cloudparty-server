@@ -1,12 +1,12 @@
-import { ValidationError } from '@/lib/errors/validationError';
-import { errorConverter } from '@/lib/http/middlewares/errorHandler';
-import { BaseError } from '@/lib/errors/baseError';
-import { NotFoundError } from '@/lib/errors/notFoundError';
-import { HttpStatus } from '@/lib/http/httpStatus';
-import { UnauthorizedError } from '@/lib/errors/unauthorizedError';
-import { ForbiddenError } from '@/lib/errors/forbiddenError';
-import { BusinessError } from '@/sharedKernel/domain/error/businessError';
-import { BadRequestError } from '@/lib/errors/badRequestError';
+import { ValidationError } from '@/_lib/errors/validationError';
+import { errorConverter } from '@/_lib/http/middlewares/errorHandler';
+import { BaseError } from '@/_lib/errors/baseError';
+import { NotFoundError } from '@/_lib/errors/notFoundError';
+import { HttpStatus } from '@/_lib/http/httpStatus';
+import { UnauthorizedError } from '@/_lib/errors/unauthorizedError';
+import { ForbiddenError } from '@/_lib/errors/forbiddenError';
+import { BusinessError } from '@/_sharedKernel/domain/error/businessError';
+import { BadRequestError } from '@/_lib/errors/badRequestError';
 
 const errorConverters = [
   errorConverter(ValidationError.is, (err) => {

@@ -1,5 +1,5 @@
 import { makeModule } from '@/context';
-import { makeREPL, REPLConfigType } from '@/lib/repl';
+import { makeREPL, REPLConfigType } from '@/_lib/repl';
 
 type REPLConfig = REPLConfigType<{
   appName: string;
