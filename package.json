@@ -8,23 +8,33 @@
     "debug": "tsnd --transpile-only --inspect --files src/index.ts | pino-pretty -c -l",
     "cli": "tsnd --transpile-only --files src/index.ts --cli",
     "cli:debug": "tsnd --transpile-only --inspect --files src/index.ts --cli",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "author": "Leonardo Vargas",
   "license": "MIT",
   "devDependencies": {
     "@types/express": "^4.17.13",
+    "@types/jest": "^28.1.1",
     "@types/node": "^17.0.41",
     "@types/pino": "^7.0.5",
+    "@types/supertest": "^2.0.12",
     "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^5.25.0",
     "@typescript-eslint/parser": "^5.25.0",
     "eslint": "^8.15.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-jest": "^26.5.3",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "jest": "^28.1.1",
     "pino-pretty": "^7.6.1",
     "prettier": "^2.6.2",
+    "supertest": "^6.2.3",
+    "ts-jest": "^28.0.5",
     "ts-node": "^10.7.0",
     "ts-node-dev": "^1.1.8",
     "tsconfig-paths": "^4.0.0",
+    "tsconfig-paths-jest": "^0.0.1",
     "typescript": "^4.6.4"
   },
   "dependencies": {
@@ -40,5 +50,28 @@
     "sequelize": "^6.19.2",
     "types-joi": "^2.1.0",
     "uuid": "^8.3.2"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "rootDir": ".",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "coverageDirectory": "coverage",
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "<rootDir>/src/**"
+    ],
+    "testRegex": "(/__tests__/.*(test|spec))\\.[jt]sx?$",
+    "moduleNameMapper": {
+      "@/(.*)": "<rootDir>/src/$1"
+    },
+    "setupFiles": [
+      "./src/__tests__/setup.ts"
+    ]
   }
 }
