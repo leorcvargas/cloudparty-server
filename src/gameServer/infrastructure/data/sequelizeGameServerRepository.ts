@@ -19,11 +19,11 @@ class SequelizeGameServerRepository implements GameServerRepository {
     return v4();
   }
 
-  save(entity: GameServer): Promise<GameServerModel> {
+  async save(entity: GameServer): Promise<void> {
     const data = GameServerMapper.toData(entity);
     const gameServer = this.gameServerModel.build(data);
 
-    return gameServer.save();
+    await gameServer.save();
   }
 
   countByPort(port: number): Promise<number> {
