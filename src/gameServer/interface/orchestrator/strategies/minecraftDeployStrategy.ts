@@ -8,15 +8,21 @@ type Dependencies = {
 };
 
 class MinecraftDeployStrategy implements OrchestratorDeployStrategy {
-  constructor(private readonly deps: Dependencies) {}
+  private readonly k8sClient: K8sClient;
+  private readonly minecraftResourcesBuilder: OrchestratorResourcesBuilder;
+
+  constructor(deps: Dependencies) {
+    this.k8sClient = deps.k8sClient;
+    this.minecraftResourcesBuilder = deps.minecraftResourcesBuilder;
+  }
 
   async deploy(id: string, port: number): Promise<void> {
-    const service = this.deps.minecraftResourcesBuilder.buildService(id, port);
-    const deployment = this.deps.minecraftResourcesBuilder.buildDeployment(id);
+    const service = this.minecraftResourcesBuilder.buildService(id, port);
+    const deployment = this.minecraftResourcesBuilder.buildDeployment(id);
 
     await Promise.all([
-      this.deps.k8sClient.createService(service),
-      this.deps.k8sClient.createDeployment(deployment),
+      this.k8sClient.createService(service),
+      this.k8sClient.createDeployment(deployment),
     ]);
   }
 }
