@@ -1,9 +1,7 @@
-import { v4 as uuidv4 } from 'uuid';
-
 import { GameServerType } from './gameServerType';
 
 type GameServerProps = {
-  id?: string;
+  id: string;
   name: string;
   hostname: string;
   port: number;
@@ -24,7 +22,7 @@ class GameServer {
   public deletedAt: Date | null;
 
   constructor(props: GameServerProps) {
-    this.id = props.id ?? uuidv4();
+    this.id = props.id;
     this.name = props.name;
     this.hostname = props.hostname;
     this.port = props.port;

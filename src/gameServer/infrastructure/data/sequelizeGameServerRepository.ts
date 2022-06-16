@@ -2,6 +2,7 @@ import { GameServer } from '@/gameServer/domain/gameServer';
 import { GameServerRepository } from '../../domain/gameServerRepository';
 import { GameServerMapper } from './gameServerMapper';
 import { GameServerModel } from './gameServerModel';
+import { v4 } from 'uuid';
 
 type Dependencies = {
   gameServerModel: typeof GameServerModel;
@@ -12,6 +13,10 @@ class SequelizeGameServerRepository implements GameServerRepository {
 
   constructor(deps: Dependencies) {
     this.gameServerModel = deps.gameServerModel;
+  }
+
+  getNextId(): string {
+    return v4();
   }
 
   save(entity: GameServer): Promise<GameServerModel> {
