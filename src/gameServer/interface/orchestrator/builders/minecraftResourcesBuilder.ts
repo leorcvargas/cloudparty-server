@@ -32,6 +32,7 @@ class MinecraftResourcesBuilder implements OrchestratorResourcesBuilder {
         },
       },
       spec: {
+        replicas: 1,
         selector: {
           matchLabels: { app: `mc-vanilla-${id}` },
         },

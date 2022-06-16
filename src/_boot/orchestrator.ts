@@ -7,8 +7,11 @@ import { OrchestratorDeployContext } from '@/gameServer/interface/orchestrator/o
 import { MinecraftDeployStrategy } from '@/gameServer/interface/orchestrator/strategies/minecraftDeployStrategy';
 import { MinecraftResourcesBuilder } from '@/gameServer/interface/orchestrator/builders/minecraftResourcesBuilder';
 
-// # TODO: Define orchestrator config for cloud env
-type OrchestratorConfig = object;
+type OrchestratorConfig = {
+  orchestrator: {
+    kubeConfig: string;
+  };
+};
 
 type OrchestratorRegistry = {
   k8sAppsV1Api: k8sClientNode.AppsV1Api;

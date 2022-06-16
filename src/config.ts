@@ -19,6 +19,9 @@ const config: Configuration = {
   appName: 'game-server-app',
   environment: environment(),
   cli: process.argv.includes('--cli'),
+  orchestrator: {
+    kubeConfig: envString('KUBECONFIG', '~/.kube/config-local')
+  },
   repl: {
     port: envNumber('REPL_PORT', 2580),
   },
