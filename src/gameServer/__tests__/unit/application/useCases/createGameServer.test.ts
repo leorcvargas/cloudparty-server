@@ -16,6 +16,8 @@ describe('CreateGameServer', () => {
     save: jest.fn(),
     getAvailablePort: jest.fn().mockReturnValue(Promise.resolve(port)),
     getNextId: jest.fn().mockReturnValue(id),
+    delete: jest.fn(),
+    findById: jest.fn(),
   };
   const minecraftDeployStrategy: OrchestratorDeployStrategy = {
     deploy: jest.fn(),
