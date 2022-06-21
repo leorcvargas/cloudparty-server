@@ -1,5 +1,5 @@
 {
-  "name": "game-server-app",
+  "name": "cloudparty-server",
   "version": "1.0.0",
   "description": "A managed host for game servers",
   "main": "index.js",

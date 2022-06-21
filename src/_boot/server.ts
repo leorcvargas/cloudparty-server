@@ -41,6 +41,7 @@ const server = makeModule(
     const rootRouter = Router();
     const apiRouter = Router();
 
+    rootRouter.use('/greetings', (req, res) => res.status(200).send('Hi!'));
     rootRouter.use('/api', apiRouter);
 
     server.use(rootRouter);

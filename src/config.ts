@@ -16,7 +16,7 @@ type Configuration = EnvironmentConfig &
   REPLConfig;
 
 const config: Configuration = {
-  appName: 'game-server-app',
+  appName: 'cloudparty-server',
   environment: environment(),
   cli: process.argv.includes('--cli'),
   orchestrator: {
