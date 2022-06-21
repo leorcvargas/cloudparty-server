@@ -1,6 +1,7 @@
 import { Router } from 'express';
 
 import { createGameServerHandler } from './createGameServerHandler';
+import { deleteGameServerHandler } from './deleteGameServerHandler';
 import { findGameServerHandler } from './findGameServerHandler';
 
 type Dependencies = {
@@ -12,6 +13,7 @@ const makeGameServerController = ({ apiRouter }: Dependencies) => {
 
   router.post('/game-server', createGameServerHandler);
   router.get('/game-server', findGameServerHandler);
+  router.delete('/game-server/:id', deleteGameServerHandler);
 
   apiRouter.use(router);
 };

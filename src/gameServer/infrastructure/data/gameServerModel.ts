@@ -71,7 +71,13 @@ const initGameServerModel = (sequelize: Sequelize) => {
         field: 'deleted_at',
       },
     },
-    { sequelize, modelName: 'GameServer', tableName: 'game_servers' },
+    {
+      sequelize,
+      modelName: 'GameServer',
+      tableName: 'game_servers',
+      paranoid: true,
+      deletedAt: 'deleted_at'
+    },
   );
 };
 

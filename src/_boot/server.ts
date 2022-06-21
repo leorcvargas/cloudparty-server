@@ -1,5 +1,6 @@
 import express, { Router, Application, json, urlencoded } from 'express';
 import { asValue } from 'awilix';
+import cors from 'cors';
 import httpLogger from 'pino-http';
 import { createServer } from 'http';
 import { requestId } from '@/_lib/http/middlewares/requestId';
@@ -37,7 +38,7 @@ const server = makeModule(
     server.use(httpLogger());
     server.use(json());
     server.use(urlencoded({ extended: false }));
-
+    
     const rootRouter = Router();
     const apiRouter = Router();
 

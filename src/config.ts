@@ -27,7 +27,7 @@ const config: Configuration = {
   },
   http: {
     host: envString('HOST', '127.0.0.1'),
-    port: envNumber('PORT', 3000),
+    port: envNumber('PORT', 3001),
   },
   sequelize: {
     database: envString('DB_NAME', 'game_server_app'),

@@ -22,6 +22,14 @@ class K8sClient {
   public createDeployment(body: k8s.V1Deployment) {
     return this.appsV1Api.createNamespacedDeployment(this.namespace, body);
   }
+
+  public deleteService(name: string) {
+    return this.coreV1Api.deleteNamespacedService(name, this.namespace);
+  }
+
+  public deleteDeployment(name: string) {
+    return this.appsV1Api.deleteNamespacedDeployment(name, this.namespace);
+  }
 }
 
 export { K8sClient };

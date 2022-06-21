@@ -6,6 +6,8 @@ import { K8sClient } from '@/gameServer/interface/orchestrator/client';
 import { OrchestratorDeployContext } from '@/gameServer/interface/orchestrator/orchestratorDeployContext';
 import { MinecraftDeployStrategy } from '@/gameServer/interface/orchestrator/strategies/minecraftDeployStrategy';
 import { MinecraftResourcesBuilder } from '@/gameServer/interface/orchestrator/builders/minecraftResourcesBuilder';
+import { OrchestratorDeleteContext } from '@/gameServer/interface/orchestrator/orchestratorDeleteContext';
+import { MinecraftDeleteStrategy } from '@/gameServer/interface/orchestrator/strategies/minecraftDeleteStrategy';
 
 type OrchestratorConfig = {
   orchestrator: {
@@ -18,7 +20,9 @@ type OrchestratorRegistry = {
   k8sCoreV1Api: k8sClientNode.CoreV1Api;
   k8sClient: K8sClient;
   orchestratorDeployContext: OrchestratorDeployContext;
+  orchestratorDeleteContext: OrchestratorDeleteContext;
   minecraftDeployStrategy: MinecraftDeployStrategy;
+  minecraftDeleteStrategy: MinecraftDeleteStrategy;
   minecraftResourcesBuilder: MinecraftResourcesBuilder;
 };
 
@@ -35,7 +39,9 @@ const orchestrator = makeModule(
       k8sCoreV1Api: asValue(k8sCoreV1Api),
       k8sClient: asClass(K8sClient),
       orchestratorDeployContext: asClass(OrchestratorDeployContext),
+      orchestratorDeleteContext: asClass(OrchestratorDeleteContext),
       minecraftDeployStrategy: asClass(MinecraftDeployStrategy),
+      minecraftDeleteStrategy: asClass(MinecraftDeleteStrategy),
       minecraftResourcesBuilder: asClass(MinecraftResourcesBuilder),
     });
   },

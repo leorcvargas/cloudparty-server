@@ -3,6 +3,7 @@ import { toContainerValues } from '@/_lib/di';
 import { withSequelizeProvider } from '@/_lib/sequelizeProvider';
 import { asClass } from 'awilix';
 import { CreateGameServer } from './application/useCases/createGameServer';
+import { DeleteGameServer } from './application/useCases/deleteGameServer';
 import { FindGameServers } from './application/useCases/findGameServers';
 import { GameServerRepository } from './domain/gameServerRepository';
 import {
@@ -17,6 +18,7 @@ type GameServerRegistry = {
   gameServerRepository: GameServerRepository;
   createGameServer: CreateGameServer;
   findGameServers: FindGameServers;
+  deleteGameServer: DeleteGameServer;
 };
 
 const gameServerModule = makeModule(
@@ -33,6 +35,7 @@ const gameServerModule = makeModule(
       gameServerRepository: asClass(SequelizeGameServerRepository),
       createGameServer: asClass(CreateGameServer),
       findGameServers: asClass(FindGameServers),
+      deleteGameServer: asClass(DeleteGameServer),
     });
 
     build(makeGameServerController);

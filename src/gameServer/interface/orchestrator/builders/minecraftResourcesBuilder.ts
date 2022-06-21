@@ -3,12 +3,16 @@ import { V1Service, V1Deployment } from '@kubernetes/client-node';
 import { OrchestratorResourcesBuilder } from './orchestratorResourcesBuilder';
 
 class MinecraftResourcesBuilder implements OrchestratorResourcesBuilder {
+  public buildServiceName(id: string): string {
+    return `mc-svc-${id}`;
+  }
+
   public buildService(id: string, port: number): V1Service {
     return {
       apiVersion: 'v1',
       kind: 'Service',
       metadata: {
-        name: `mc-svc-${id}`,
+        name: this.buildServiceName(id),
         labels: {
           gameServerId: id,
         },
@@ -21,12 +25,16 @@ class MinecraftResourcesBuilder implements OrchestratorResourcesBuilder {
     };
   }
 
+  public buildDeploymentName(id: string): string {
+    return `mc-deployment-${id}`;
+  }
+
   public buildDeployment(id: string): V1Deployment {
     return {
       apiVersion: 'apps/v1',
       kind: 'Deployment',
       metadata: {
-        name: `mc-vanilla-${id}`,
+        name: this.buildDeploymentName(id),
         labels: {
           gameServerId: id,
         },

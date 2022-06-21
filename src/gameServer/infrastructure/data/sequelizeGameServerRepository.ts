@@ -31,6 +31,16 @@ class SequelizeGameServerRepository implements GameServerRepository {
     return gameServers.map(GameServerMapper.toEntity);
   }
 
+  async findById(id: string): Promise<GameServer | null> {
+    const gameServer = await this.gameServerModel.findByPk(id);
+
+    if (!gameServer) {
+      return null;
+    }
+
+    return GameServerMapper.toEntity(gameServer);
+  }
+
   async getAvailablePort(): Promise<number> {
     const port = Math.floor(Math.random() * 2768) + 30000;
 
@@ -42,6 +52,10 @@ class SequelizeGameServerRepository implements GameServerRepository {
     }
 
     return this.getAvailablePort();
+  }
+
+  async delete(id: string): Promise<void> {
+    await this.gameServerModel.destroy({ where: { id } });
   }
 }
 
