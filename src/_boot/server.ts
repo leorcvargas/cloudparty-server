@@ -38,6 +38,8 @@ const server = makeModule(
     server.use(httpLogger());
     server.use(json());
     server.use(urlencoded({ extended: false }));
+    // TODO: Setup CORS
+    server.use(cors());
     
     const rootRouter = Router();
     const apiRouter = Router();
