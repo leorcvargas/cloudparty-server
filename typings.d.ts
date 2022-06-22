@@ -1,6 +1,6 @@
 declare namespace Express {
   export interface Request {
-    id: string;
+    id: import('pino-http').ReqId;
     container: import('@/container').Container;
     accessToken: any;
   }

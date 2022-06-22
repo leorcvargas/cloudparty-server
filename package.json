@@ -8,9 +8,11 @@
     "debug": "tsnd --transpile-only --inspect --files src/index.ts | pino-pretty -c -l",
     "cli": "tsnd --transpile-only --files src/index.ts --cli",
     "cli:debug": "tsnd --transpile-only --inspect --files src/index.ts --cli",
-    "test": "jest"
+    "test": "jest",
+    "build": "tsc -p tsconfig.prod.json",
+    "prebuild": "rimraf dist"
   },
-  "author": "Leonardo Vargas",
+  "author": "Leonardo Vargas <leocarvalho.vargas@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "@types/cors": "^2.8.12",
@@ -36,7 +38,7 @@
     "ts-node-dev": "^1.1.8",
     "tsconfig-paths": "^4.0.0",
     "tsconfig-paths-jest": "^0.0.1",
-    "typescript": "^4.6.4"
+    "typescript": "^4.7.4"
   },
   "dependencies": {
     "@kubernetes/client-node": "^0.16.3",
