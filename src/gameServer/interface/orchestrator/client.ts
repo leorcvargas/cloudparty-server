@@ -15,12 +15,36 @@ class K8sClient {
     this.coreV1Api = deps.k8sCoreV1Api;
   }
 
-  public createService(body: k8s.V1Service) {
-    return this.coreV1Api.createNamespacedService(this.namespace, body);
+  public patchServicePorts(name: string, body: k8s.V1Service) {
+    const options = {
+      headers: { 'Content-type': k8s.PatchUtils.PATCH_FORMAT_JSON_PATCH },
+    };
+    const patch = [
+      {
+        op: 'replace',
+        path: '/spec/ports',
+        value: body.spec?.ports,
+      },
+    ];
+
+    return this.coreV1Api.patchNamespacedService(
+      name,
+      this.namespace,
+      patch,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      options,
+    );
   }
 
   public createDeployment(body: k8s.V1Deployment) {
     return this.appsV1Api.createNamespacedDeployment(this.namespace, body);
+  }
+
+  public getService(name: string) {
+    return this.coreV1Api.readNamespacedService(name, this.namespace);
   }
 
   public deleteService(name: string) {

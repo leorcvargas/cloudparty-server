@@ -7,11 +7,11 @@ export class OrchestratorDeleteContext {
     this.strategy = strategy;
   }
 
-  public execute(id: string) {
+  public execute(id: string, port: number) {
     if (!this.strategy) {
       throw new Error('OrchestratorDeleteStrategy not defined');
     }
 
-    return this.strategy.delete(id);
+    return this.strategy.delete(id, port);
   }
 }

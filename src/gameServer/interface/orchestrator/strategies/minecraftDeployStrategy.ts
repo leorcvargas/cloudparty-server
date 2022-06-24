@@ -17,13 +17,17 @@ class MinecraftDeployStrategy implements OrchestratorDeployStrategy {
   }
 
   async deploy(id: string, port: number): Promise<void> {
-    const service = this.minecraftResourcesBuilder.buildService(id, port);
+    const { body: service } = await this.k8sClient.getService('mc-vanilla-svc');
+
+    const changedService = this.minecraftResourcesBuilder.buildService(
+      id,
+      port,
+      service,
+    );
     const deployment = this.minecraftResourcesBuilder.buildDeployment(id);
 
-    await Promise.all([
-      this.k8sClient.createService(service),
-      this.k8sClient.createDeployment(deployment),
-    ]);
+    await this.k8sClient.patchServicePorts('mc-vanilla-svc', changedService);
+    await this.k8sClient.createDeployment(deployment);
   }
 }
 

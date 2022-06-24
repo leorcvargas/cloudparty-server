@@ -48,7 +48,10 @@ class DeleteGameServer implements UseCase<Input, Output> {
       }
     }
 
-    await this.orchestratorDeleteContext.execute(gameServer.id);
+    await this.orchestratorDeleteContext.execute(
+      gameServer.id,
+      gameServer.port,
+    );
     await this.gameServerRepository.delete(id);
 
     return id;
