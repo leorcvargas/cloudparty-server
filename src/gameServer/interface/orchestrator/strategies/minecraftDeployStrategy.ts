@@ -17,16 +17,25 @@ class MinecraftDeployStrategy implements OrchestratorDeployStrategy {
   }
 
   async deploy(id: string, port: number): Promise<void> {
-    const { body: service } = await this.k8sClient.getService('mc-vanilla-svc');
-
-    const changedService = this.minecraftResourcesBuilder.buildService(
-      id,
-      port,
-      service,
-    );
+    const service = this.minecraftResourcesBuilder.buildService(id, port);
     const deployment = this.minecraftResourcesBuilder.buildDeployment(id);
 
-    await this.k8sClient.patchServicePorts('mc-vanilla-svc', changedService);
+    await this.k8sClient.patchServiceAddPort({
+      name: 'ingress-nginx-controller',
+      port,
+      targetPort: port,
+      portName: service.metadata!.name!,
+      protocol: 'TCP',
+    });
+
+    await this.k8sClient.patchConfigMapAddData(
+      'tcp-services',
+      port,
+      `${this.k8sClient.namespace}/${service.metadata!.name!}:${port}`,
+    );
+
+    await this.k8sClient.createService(service);
+
     await this.k8sClient.createDeployment(deployment);
   }
 }

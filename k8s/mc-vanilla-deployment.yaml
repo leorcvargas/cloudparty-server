@@ -1,42 +1,19 @@
-apiVersion: v1
-kind: Service
-metadata:
-  name: mc-vanilla
-spec:
-  type: NodePort
-  ports:
-    - port: 25565
-      nodePort: 30000
-  selector:
-    app: mc-vanilla
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: test-ingress
-spec:
-  defaultBackend:
-    service:
-      name: mc-vanilla
-      port:
-        number: 30000
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mc-vanilla
+  name: mc-vanilla-server
 spec:
   selector:
     matchLabels:
-      app: mc-vanilla
+      app: mc-vanilla-server
   template:
     metadata:
       labels:
-        app: mc-vanilla
+        app: mc-vanilla-server
     spec:
       containers:
         - image: itzg/minecraft-server
-          name: mc-vanilla
+          name: mc-vanilla-server
           env:
             - name: EULA
               value: "true"

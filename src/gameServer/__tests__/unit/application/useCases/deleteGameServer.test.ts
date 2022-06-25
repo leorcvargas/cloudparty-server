@@ -62,6 +62,6 @@ describe('CreateGameServer', () => {
   it('should delete server resources', async () => {
     await deleteGameServer.execute({ id });
 
-    expect(minecraftDeleteStrategy.delete).toHaveBeenCalledWith(id);
+    expect(minecraftDeleteStrategy.delete).toHaveBeenCalledWith(id, port);
   });
 });

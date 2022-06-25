@@ -17,27 +17,29 @@ class MinecraftDeleteStrategy implements OrchestratorDeleteStrategy {
   }
 
   async delete(id: string, port: number): Promise<void> {
-    const { body: service } = await this.k8sClient.getService('mc-vanilla-svc');
-
+    const { body: service } = await this.k8sClient.getService(
+      'ingress-nginx-controller',
+    );
     if (!service.spec) {
       throw new Error('Missing service spec');
     }
 
-    const newServicePorts = service.spec?.ports?.filter(
-      (svcPort) => svcPort.port !== port,
+    const servicePortIndex = service.spec.ports!.findIndex(
+      (svcPort) => svcPort.port === port,
     );
-
-    service.spec = {
-      ...service.spec,
-      ports: newServicePorts,
-    };
 
     const deploymentName =
       this.minecraftResourcesBuilder.buildDeploymentName(id);
+    const serviceName = this.minecraftResourcesBuilder.buildServiceName(id);
 
     await Promise.all([
-      this.k8sClient.patchServicePorts('mc-vanilla-svc', service),
+      this.k8sClient.patchConfigMapDeleteData('tcp-services', port),
+      this.k8sClient.patchServiceDeletePort(
+        'ingress-nginx-controller',
+        servicePortIndex,
+      ),
       this.k8sClient.deleteDeployment(deploymentName),
+      this.k8sClient.deleteService(serviceName),
     ]);
   }
 }

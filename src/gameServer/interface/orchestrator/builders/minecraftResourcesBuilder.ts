@@ -1,63 +1,51 @@
-import { V1Service, V1Deployment } from '@kubernetes/client-node';
+import * as k8s from '@kubernetes/client-node';
 
 import { OrchestratorResourcesBuilder } from './orchestratorResourcesBuilder';
 
 class MinecraftResourcesBuilder implements OrchestratorResourcesBuilder {
   public buildServiceName(id: string): string {
-    return `mc-svc-${id}`;
+    return `mc-vanilla-svc-${id}`;
   }
 
-  public buildService(id: string, port: number, service: V1Service): V1Service {
-    const newPort = { port, targetPort: 25565, protocol: 'TCP', name: id };
-
-    const changedService: V1Service = {
-      ...service,
+  public buildService(id: string, port: number): k8s.V1Service {
+    return {
+      apiVersion: 'v1',
+      kind: 'Service',
+      metadata: {
+        name: this.buildServiceName(id),
+      },
       spec: {
-        ...service.spec,
-        ports: [...(service.spec?.ports ?? []), newPort],
+        type: 'ClusterIP',
+        ports: [{ port, targetPort: 25565, protocol: 'TCP' }],
+        selector: { app: this.buildDeploymentName(id) },
       },
     };
-
-    return changedService;
-    // return {
-    //   apiVersion: 'v1',
-    //   kind: 'Service',
-    //   metadata: {
-    //     name: this.buildServiceName(id),
-    //     labels: {
-    //       'app.kubernetes.io/name': 'mc-vanilla-svc',
-    //     },
-    //   },
-    //   spec: {
-    //     type: 'LoadBalancer',
-    //     ports: [{ port, targetPort: 25565, protocol: 'TCP' }],
-    //     selector: { app: `mc-vanilla-${id}` },
-    //   },
-    // };
   }
 
   public buildDeploymentName(id: string): string {
-    return `mc-deployment-${id}`;
+    return `mc-vanilla-deployment-${id}`;
   }
 
-  public buildDeployment(id: string): V1Deployment {
+  public buildDeployment(id: string): k8s.V1Deployment {
+    const deploymentName = this.buildDeploymentName(id);
+
     return {
       apiVersion: 'apps/v1',
       kind: 'Deployment',
       metadata: {
-        name: this.buildDeploymentName(id),
+        name: deploymentName,
         labels: {
           gameServerId: id,
-          app: 'mc-vanilla-server',
+          app: deploymentName,
         },
       },
       spec: {
         replicas: 1,
         selector: {
-          matchLabels: { gameServerId: id, app: 'mc-vanilla-server' },
+          matchLabels: { gameServerId: id, app: deploymentName },
         },
         template: {
-          metadata: { labels: { gameServerId: id, app: 'mc-vanilla-server' } },
+          metadata: { labels: { gameServerId: id, app: deploymentName } },
           spec: {
             containers: [
               {
