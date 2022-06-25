@@ -69,17 +69,17 @@ class K8sClient {
     );
   }
 
-  public patchConfigMapAddData(name: string, key: number | string, value: string) {
+  public patchConfigMapAddData(
+    name: string,
+    key: number | string,
+    value: string,
+  ) {
     const options = {
-      headers: { 'Content-type': k8s.PatchUtils.PATCH_FORMAT_JSON_PATCH },
+      headers: { 'Content-type': k8s.PatchUtils.PATCH_FORMAT_JSON_MERGE_PATCH },
     };
-    const patch = [
-      {
-        op: 'add',
-        path: '/data',
-        value: { [key]: value },
-      },
-    ];
+    const patch = {
+      data: { [key]: value },
+    };
 
     return this.coreV1Api.patchNamespacedConfigMap(
       name,
