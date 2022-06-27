@@ -1,8 +1,8 @@
 import { GameServerType } from '@/gameServer/domain/gameServerType';
 import { UseCase } from '@/_lib/useCase';
 import { GameServerRepository } from '@/gameServer/domain/gameServerRepository';
-import { OrchestratorDeleteContext } from '@/gameServer/interface/orchestrator/orchestratorDeleteContext';
-import { OrchestratorDeleteStrategy } from '@/gameServer/interface/orchestrator/strategies/orchestratorDeleteStrategy';
+import { OrchestratorDeleteContext } from '@/gameServer/infrastructure/orchestrator/orchestratorDeleteContext';
+import { OrchestratorDeleteStrategy } from '@/gameServer/infrastructure/orchestrator/strategies/orchestratorDeleteStrategy';
 
 interface Input {
   id: string;

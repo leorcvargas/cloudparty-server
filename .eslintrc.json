@@ -19,12 +19,6 @@
   "rules": {
     "@typescript-eslint/no-namespace": 0,
     "@typescript-eslint/no-explicit-any": 0,
-    "@typescript-eslint/no-non-null-assertion": "off",
-    "max-len": [
-      "error",
-      {
-        "code": 120
-      }
-    ]
+    "@typescript-eslint/no-non-null-assertion": "off"
   }
 }

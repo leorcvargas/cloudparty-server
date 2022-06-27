@@ -2,12 +2,13 @@ import * as k8sClientNode from '@kubernetes/client-node';
 import { asClass, asValue } from 'awilix';
 
 import { makeModule } from '@/context';
-import { K8sClient } from '@/gameServer/interface/orchestrator/client';
-import { OrchestratorDeployContext } from '@/gameServer/interface/orchestrator/orchestratorDeployContext';
-import { MinecraftDeployStrategy } from '@/gameServer/interface/orchestrator/strategies/minecraftDeployStrategy';
-import { MinecraftResourcesBuilder } from '@/gameServer/interface/orchestrator/builders/minecraftResourcesBuilder';
-import { OrchestratorDeleteContext } from '@/gameServer/interface/orchestrator/orchestratorDeleteContext';
-import { MinecraftDeleteStrategy } from '@/gameServer/interface/orchestrator/strategies/minecraftDeleteStrategy';
+import { K8sClient } from '@/gameServer/infrastructure/orchestrator/client';
+import { OrchestratorDeployContext } from '@/gameServer/infrastructure/orchestrator/orchestratorDeployContext';
+import { MinecraftDeployStrategy } from '@/gameServer/infrastructure/orchestrator/strategies/minecraftDeployStrategy';
+import { MinecraftResourcesBuilder } from '@/gameServer/infrastructure/orchestrator/builders/minecraftResourcesBuilder';
+import { OrchestratorDeleteContext } from '@/gameServer/infrastructure/orchestrator/orchestratorDeleteContext';
+import { MinecraftDeleteStrategy } from '@/gameServer/infrastructure/orchestrator/strategies/minecraftDeleteStrategy';
+import { K8sOrchestratorInterface } from '@/gameServer/infrastructure/orchestrator/k8sOrchestratorInterface';
 
 type OrchestratorConfig = {
   orchestrator: {
@@ -24,6 +25,7 @@ type OrchestratorRegistry = {
   minecraftDeployStrategy: MinecraftDeployStrategy;
   minecraftDeleteStrategy: MinecraftDeleteStrategy;
   minecraftResourcesBuilder: MinecraftResourcesBuilder;
+  k8sOrchestratorInterface: K8sOrchestratorInterface;
 };
 
 const orchestrator = makeModule(
@@ -43,6 +45,7 @@ const orchestrator = makeModule(
       minecraftDeployStrategy: asClass(MinecraftDeployStrategy),
       minecraftDeleteStrategy: asClass(MinecraftDeleteStrategy),
       minecraftResourcesBuilder: asClass(MinecraftResourcesBuilder),
+      k8sOrchestratorInterface: asClass(K8sOrchestratorInterface),
     });
   },
 );

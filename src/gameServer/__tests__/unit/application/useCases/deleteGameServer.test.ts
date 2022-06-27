@@ -2,8 +2,8 @@ import { DeleteGameServer } from '@/gameServer/application/useCases/deleteGameSe
 import { GameServer } from '@/gameServer/domain/gameServer';
 import { GameServerRepository } from '@/gameServer/domain/gameServerRepository';
 import { GameServerType } from '@/gameServer/domain/gameServerType';
-import { OrchestratorDeleteContext } from '@/gameServer/interface/orchestrator/orchestratorDeleteContext';
-import { OrchestratorDeleteStrategy } from '@/gameServer/interface/orchestrator/strategies/orchestratorDeleteStrategy';
+import { OrchestratorDeleteContext } from '@/gameServer/infrastructure/orchestrator/orchestratorDeleteContext';
+import { OrchestratorDeleteStrategy } from '@/gameServer/infrastructure/orchestrator/strategies/orchestratorDeleteStrategy';
 
 describe('CreateGameServer', () => {
   const id = 'mock-game-server-id';

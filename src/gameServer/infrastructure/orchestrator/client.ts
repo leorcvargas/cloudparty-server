@@ -1,4 +1,5 @@
 import * as k8s from '@kubernetes/client-node';
+import { V1Deployment } from '@kubernetes/client-node';
 
 type Dependencies = {
   k8sAppsV1Api: k8s.AppsV1Api;
@@ -13,6 +14,18 @@ class K8sClient {
   constructor(deps: Dependencies) {
     this.appsV1Api = deps.k8sAppsV1Api;
     this.coreV1Api = deps.k8sCoreV1Api;
+  }
+
+  public createService(body: k8s.V1Service) {
+    return this.coreV1Api.createNamespacedService(this.namespace, body);
+  }
+
+  public createDeployment(body: k8s.V1Deployment) {
+    return this.appsV1Api.createNamespacedDeployment(this.namespace, body);
+  }
+
+  public getService(name: string) {
+    return this.coreV1Api.readNamespacedService(name, this.namespace);
   }
 
   public patchServiceDeletePort(name: string, portIndex: number) {
@@ -116,16 +129,20 @@ class K8sClient {
     );
   }
 
-  public createService(body: k8s.V1Service) {
-    return this.coreV1Api.createNamespacedService(this.namespace, body);
-  }
+  public async findDeploymentByLabel(
+    labelKey: string,
+    labelValue: string,
+  ): Promise<V1Deployment | undefined> {
+    const result = await this.appsV1Api.listNamespacedDeployment(
+      this.namespace,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      `${labelKey}=${labelValue}`,
+    );
 
-  public createDeployment(body: k8s.V1Deployment) {
-    return this.appsV1Api.createNamespacedDeployment(this.namespace, body);
-  }
-
-  public getService(name: string) {
-    return this.coreV1Api.readNamespacedService(name, this.namespace);
+    return result.body.items[0];
   }
 
   public deleteService(name: string) {

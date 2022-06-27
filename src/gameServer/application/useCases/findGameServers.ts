@@ -2,8 +2,8 @@ import { GameServer } from '@/gameServer/domain/gameServer';
 import { UseCase } from '@/_lib/useCase';
 import { GameServerRepository } from '@/gameServer/domain/gameServerRepository';
 import { Configuration } from '@/config';
-import { OrchestratorDeployContext } from '@/gameServer/interface/orchestrator/orchestratorDeployContext';
-import { OrchestratorDeployStrategy } from '@/gameServer/interface/orchestrator/strategies/orchestratorDeployStrategy';
+import { OrchestratorDeployContext } from '@/gameServer/infrastructure/orchestrator/orchestratorDeployContext';
+import { OrchestratorDeployStrategy } from '@/gameServer/infrastructure/orchestrator/strategies/orchestratorDeployStrategy';
 
 type Input = undefined;
 

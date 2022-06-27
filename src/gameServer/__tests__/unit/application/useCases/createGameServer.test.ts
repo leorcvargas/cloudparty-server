@@ -2,8 +2,8 @@ import { Configuration } from '@/config';
 import { CreateGameServer } from '@/gameServer/application/useCases/createGameServer';
 import { GameServerRepository } from '@/gameServer/domain/gameServerRepository';
 import { GameServerType } from '@/gameServer/domain/gameServerType';
-import { OrchestratorDeployContext } from '@/gameServer/interface/orchestrator/orchestratorDeployContext';
-import { OrchestratorDeployStrategy } from '@/gameServer/interface/orchestrator/strategies/orchestratorDeployStrategy';
+import { OrchestratorDeployContext } from '@/gameServer/infrastructure/orchestrator/orchestratorDeployContext';
+import { OrchestratorDeployStrategy } from '@/gameServer/infrastructure/orchestrator/strategies/orchestratorDeployStrategy';
 
 describe('CreateGameServer', () => {
   const id = 'mock-game-server-id';

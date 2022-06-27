@@ -11,7 +11,7 @@ import {
   initGameServerModel,
 } from './infrastructure/data/gameServerModel';
 import { SequelizeGameServerRepository } from './infrastructure/data/sequelizeGameServerRepository';
-import { makeGameServerController } from './infrastructure/http/gameServerController';
+import { makeGameServerController } from './interface/http/gameServerController';
 
 type GameServerRegistry = {
   gameServerModel: typeof GameServerModel;
