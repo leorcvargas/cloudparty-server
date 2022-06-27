@@ -14,6 +14,10 @@ import { OrchestratorGateway } from '@/gameServer/infrastructure/orchestrator/or
 type OrchestratorConfig = {
   orchestrator: {
     kubeConfig: string;
+    service: {
+      name: string;
+      configMapName: string;
+    }
   };
 };
 

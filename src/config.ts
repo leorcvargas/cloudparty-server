@@ -20,7 +20,11 @@ const config: Configuration = {
   environment: environment(),
   cli: process.argv.includes('--cli'),
   orchestrator: {
-    kubeConfig: envString('KUBECONFIG', '~/.kube/config-local')
+    kubeConfig: envString('KUBECONFIG', '~/.kube/config-local'),
+    service: {
+      name: 'ingress-nginx-controller',
+      configMapName: 'tcp-services',
+    },
   },
   repl: {
     port: envNumber('REPL_PORT', 2580),
