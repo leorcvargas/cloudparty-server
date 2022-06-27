@@ -8,7 +8,7 @@ type Dependencies = {
   findGameServers: FindGameServers;
 };
 
-const findGameServerHandler = handler(
+const findGameServersHandler = handler(
   ({ findGameServers }: Dependencies) =>
     async (req: Request, res: Response) => {
       const gameServers = await findGameServers.execute();
@@ -17,4 +17,4 @@ const findGameServerHandler = handler(
     },
 );
 
-export { findGameServerHandler };
+export { findGameServersHandler };

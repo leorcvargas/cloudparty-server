@@ -8,7 +8,8 @@ import { MinecraftDeployStrategy } from '@/gameServer/infrastructure/orchestrato
 import { MinecraftResourcesBuilder } from '@/gameServer/infrastructure/orchestrator/builders/minecraftResourcesBuilder';
 import { OrchestratorDeleteContext } from '@/gameServer/infrastructure/orchestrator/orchestratorDeleteContext';
 import { MinecraftDeleteStrategy } from '@/gameServer/infrastructure/orchestrator/strategies/minecraftDeleteStrategy';
-import { K8sOrchestratorInterface } from '@/gameServer/infrastructure/orchestrator/k8sOrchestratorInterface';
+import { K8sOrchestratorGateway } from '@/gameServer/infrastructure/orchestrator/k8sOrchestratorGateway';
+import { OrchestratorGateway } from '@/gameServer/infrastructure/orchestrator/orchestratorGateway';
 
 type OrchestratorConfig = {
   orchestrator: {
@@ -25,7 +26,7 @@ type OrchestratorRegistry = {
   minecraftDeployStrategy: MinecraftDeployStrategy;
   minecraftDeleteStrategy: MinecraftDeleteStrategy;
   minecraftResourcesBuilder: MinecraftResourcesBuilder;
-  k8sOrchestratorInterface: K8sOrchestratorInterface;
+  orchestratorGateway: OrchestratorGateway;
 };
 
 const orchestrator = makeModule(
@@ -45,7 +46,7 @@ const orchestrator = makeModule(
       minecraftDeployStrategy: asClass(MinecraftDeployStrategy),
       minecraftDeleteStrategy: asClass(MinecraftDeleteStrategy),
       minecraftResourcesBuilder: asClass(MinecraftResourcesBuilder),
-      k8sOrchestratorInterface: asClass(K8sOrchestratorInterface),
+      orchestratorGateway: asClass(K8sOrchestratorGateway),
     });
   },
 );

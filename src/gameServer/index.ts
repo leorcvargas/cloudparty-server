@@ -5,6 +5,7 @@ import { asClass } from 'awilix';
 import { CreateGameServer } from './application/useCases/createGameServer';
 import { DeleteGameServer } from './application/useCases/deleteGameServer';
 import { FindGameServers } from './application/useCases/findGameServers';
+import { FindGameServerStatus } from './application/useCases/findGameServerStatus';
 import { GameServerRepository } from './domain/gameServerRepository';
 import {
   GameServerModel,
@@ -18,6 +19,7 @@ type GameServerRegistry = {
   gameServerRepository: GameServerRepository;
   createGameServer: CreateGameServer;
   findGameServers: FindGameServers;
+  findGameServerStatus: FindGameServerStatus;
   deleteGameServer: DeleteGameServer;
 };
 
@@ -35,6 +37,7 @@ const gameServerModule = makeModule(
       gameServerRepository: asClass(SequelizeGameServerRepository),
       createGameServer: asClass(CreateGameServer),
       findGameServers: asClass(FindGameServers),
+      findGameServerStatus: asClass(FindGameServerStatus),
       deleteGameServer: asClass(DeleteGameServer),
     });
 

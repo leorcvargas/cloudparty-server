@@ -1,18 +1,18 @@
 import { K8sClient } from './client';
-import { OrchestratorInterface } from './orchestratorInterface';
+import { OrchestratorGateway } from './orchestratorGateway';
 
 type Dependencies = {
   k8sClient: K8sClient;
 };
 
-class K8sOrchestratorInterface implements OrchestratorInterface {
+class K8sOrchestratorGateway implements OrchestratorGateway {
   private readonly k8sClient: K8sClient;
 
   constructor(deps: Dependencies) {
     this.k8sClient = deps.k8sClient;
   }
 
-  async getGameServerStatus(
+  async findGameServerStatus(
     gameServerId: string,
   ): Promise<'ONLINE' | 'BOOTING' | 'OFFLINE'> {
     const deployment = await this.k8sClient.findDeploymentByLabel(
@@ -34,4 +34,4 @@ class K8sOrchestratorInterface implements OrchestratorInterface {
   }
 }
 
-export { K8sOrchestratorInterface };
+export { K8sOrchestratorGateway };
